@@ -2,6 +2,7 @@ package app.view;
 
 import app.model.Client;
 import app.model.ClientData;
+import app.controller.ClientController;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.collections.FXCollections;
@@ -15,15 +16,19 @@ public class ClientView {
 
     private BorderPane root;
     private TableView<Client> tableView;
+    private ClientController clientController; // Ajout de la référence au contrôleur
 
-    public ClientView() {
+    public ClientView(ClientController clientController) { // Prend le contrôleur en paramètre
+        this.clientController = clientController; // Initialise la référence au contrôleur
         root = new BorderPane();
         setupLayout();
     }
 
     private void setupLayout() {
         Label titre = new Label("Gestion des clients");
+        titre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
         Button bouttonAjouter = new Button("Ajouter +");
+        bouttonAjouter.setOnAction(e -> clientController.afficherClientAddView());
 
         VBox header = new VBox(10);
         header.getChildren().addAll(titre, bouttonAjouter);

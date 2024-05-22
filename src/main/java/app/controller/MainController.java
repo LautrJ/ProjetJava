@@ -4,8 +4,10 @@ import app.view.MainView;
 import app.view.ClientView;
 import app.view.CommandeView;
 import app.view.StockView;
+import app.controller.ClientController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Stage;
 
 public class MainController {
 
@@ -14,13 +16,14 @@ public class MainController {
     private CommandeView commandeView;
     private StockView stockView;
 
-    public MainController(MainView view){
+    public MainController(MainView view, Stage primaryStage){
         this.view = view;
-        initialize();
+        initialize(primaryStage);
     }
 
-    private void initialize() {
-        clientView = new ClientView();
+    private void initialize(Stage primaryStage) {
+        ClientController clientController = new ClientController(primaryStage);
+        clientView = new ClientView(clientController);
         commandeView = new CommandeView();
         stockView = new StockView();
 
