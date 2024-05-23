@@ -1,7 +1,6 @@
 package app.view;
 
 import app.model.Client;
-import app.model.ClientData;
 import app.controller.ClientController;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -16,10 +15,10 @@ public class ClientView {
 
     private BorderPane root;
     private TableView<Client> tableView;
-    private ClientController clientController; // Ajout de la référence au contrôleur
+    private ClientController clientController;
 
-    public ClientView(ClientController clientController) { // Prend le contrôleur en paramètre
-        this.clientController = clientController; // Initialise la référence au contrôleur
+    public ClientView(ClientController clientController) {
+        this.clientController = clientController;
         root = new BorderPane();
         setupLayout();
     }
@@ -34,12 +33,13 @@ public class ClientView {
         header.getChildren().addAll(titre, bouttonAjouter);
 
         tableView = new TableView<>();
-
-        TableColumn<Client, String> colNom = new TableColumn<>("Nom");
-        colNom.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Client, String> colPrenom = new TableColumn<>("Prenom");
         colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+
+        TableColumn<Client, String> colNom = new TableColumn<>("Nom");
+        colNom.setCellValueFactory(new PropertyValueFactory<>("nomClient"));
 
         TableColumn<Client, String>  colAdrLivr = new TableColumn<>("Adresse de livraison");
         colAdrLivr.setCellValueFactory(new PropertyValueFactory<>("adresseDeLivraison"));
@@ -57,8 +57,7 @@ public class ClientView {
                     {
                         btn.setOnAction((event) -> {
                             Client client = getTableView().getItems().get(getIndex());
-                            // Action de modification
-                            System.out.println("Modifier : " + client);
+                            clientController.afficherClientModifyView(client);
                         });
                     }
 
@@ -85,11 +84,7 @@ public class ClientView {
 
                     {
                         btn.setOnAction((event) -> {
-                            Client client = getTableView().getItems().get(getIndex());
-                            // Action de suppression
-                            System.out.println("Supprimer : " + client);
-                            // Suppression du client de la liste
-                            getTableView().getItems().remove(client);
+                            clientController.deleteClient(getIndex());
                         });
                     }
 
@@ -108,7 +103,7 @@ public class ClientView {
 
         tableView.getColumns().addAll(colNom, colPrenom, colAdrLivr, colAdrFact, colModifier, colSupprimer);
 
-        ObservableList<Client> clientList = FXCollections.observableArrayList(ClientData.getClients());
+        ObservableList<Client> clientList = clientController.getClientObservableList();
         tableView.setItems(clientList);
 
         root.setTop(header);

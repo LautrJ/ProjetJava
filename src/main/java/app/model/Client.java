@@ -1,7 +1,6 @@
 package app.model;
 
 public class Client {
-    private int idClient;
     private String login;
     private String password;
     private String nomClient;
@@ -9,8 +8,7 @@ public class Client {
     private String adresseDeLivraison;
     private String adresseDeFacturation;
 
-    public Client(int id, String login, String password, String nomClient, String prenom, String adresseDeLivraison, String adresseDeFacturation) {
-        this.idClient = id;
+    public Client(String login, String password, String nomClient, String prenom, String adresseDeLivraison, String adresseDeFacturation) {
         this.login = login;
         this.password = password;
         this.nomClient = nomClient;
@@ -19,8 +17,6 @@ public class Client {
         this.adresseDeFacturation = adresseDeFacturation;
     }
 
-    public int getId() { return idClient; }
-    public void setId(int id) { this.idClient = id; }
 
     public String getLogin() { return login; }
     public void setLogin(String login) { this.login = login; }

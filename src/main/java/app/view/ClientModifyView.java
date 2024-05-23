@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ClientAddView {
+public class ClientModifyView {
     private Stage stage;
     private TextField loginField;
     private TextField passwordField;
@@ -22,7 +22,7 @@ public class ClientAddView {
     private TextField adrFactField;
     private Button saveButton;
 
-    public ClientAddView() {
+    public ClientModifyView() {
         stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Création d'un nouveau client");
@@ -62,7 +62,16 @@ public class ClientAddView {
         stage.setScene(scene);
     }
 
-    public Client getNewClient() {
+    public void setClientFields(Client client) {
+        loginField.setText(client.getLogin());
+        passwordField.setText(client.getPassword());
+        nomField.setText(client.getNomClient());
+        prenomField.setText(client.getPrenom());
+        adrLivrField.setText(client.getAdresseDeLivraison());
+        adrFactField.setText(client.getAdresseDeFacturation());
+    }
+
+    public Client getModifiedClient() {
         Client client = new Client (
                 loginField.getText(),
                 passwordField.getText(),
