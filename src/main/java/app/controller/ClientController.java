@@ -2,6 +2,7 @@ package app.controller;
 
 import app.model.Client;
 import app.model.ClientData;
+import app.model.ClientListSingleton;
 import app.view.ClientAddView;
 import app.view.ClientModifyView;
 import javafx.collections.FXCollections;
@@ -16,7 +17,7 @@ public class ClientController {
 
     public ClientController(Stage parentStage) {
         this.parentStage = parentStage;
-        this.clientObservableList = FXCollections.observableArrayList(ClientData.getClients());
+        this.clientObservableList = ClientListSingleton.getInstance().getClientObservableList();
     }
 
     public void afficherClientAddView() {

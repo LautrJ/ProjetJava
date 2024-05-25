@@ -3,6 +3,7 @@ package app.view;
 import app.model.Article;
 import app.controller.ArticleController;
 import app.model.ArticleData;
+import app.model.ArticleListSingleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -16,9 +17,11 @@ public class ArticleView {
     private BorderPane root;
     private TableView<Article> tableView;
     private ArticleController articleController;
+    private ObservableList<Article> articleObservableList;
 
     public ArticleView(ArticleController articleController){
         this.articleController = articleController;
+        this.articleObservableList = ArticleListSingleton.getInstance().getArticleObservableList();
         root = new BorderPane();
         setupLayout();
     }
@@ -111,8 +114,7 @@ public class ArticleView {
 
         tableView.getColumns().addAll(colNom, colDesc, colPrix, colStock, colModifier, colSupprimer);
 
-        ObservableList<Article> articleList = articleController.getArticleObservableList();
-        tableView.setItems(articleList);
+        tableView.setItems(articleObservableList);
 
         root.setTop(header);
         root.setCenter(tableView);

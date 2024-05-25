@@ -1,8 +1,6 @@
 package app.controller;
 
-import app.model.Article;
-import app.model.ArticleData;
-import app.model.Client;
+import app.model.*;
 import app.view.ArticleAddView;
 import app.view.ArticleModifyView;
 import app.view.ClientModifyView;
@@ -14,11 +12,15 @@ import java.util.function.Consumer;
 
 public class ArticleController {
     private ObservableList<Article> articleObservableList;
+    private ObservableList<Commande> commandeObservableList;
     private Stage parentStage;
+    private CommandeController commandeController;
 
     public ArticleController(Stage parentStage) {
         this.parentStage = parentStage;
-        this.articleObservableList = FXCollections.observableArrayList(ArticleData.getArticles());
+        this.articleObservableList = ArticleListSingleton.getInstance().getArticleObservableList();
+        this.commandeObservableList = FXCollections.observableArrayList(CommandeData.getCommandes());
+        this.commandeController = new CommandeController(parentStage);
     }
 
     public void afficherArticleAddView() {
@@ -66,6 +68,15 @@ public class ArticleController {
         } else {
             System.out.println("Article non ajouté, données non valides");
         }
+    }
+
+    public Article findArticleByName(ObservableList<Article> articleObservableList, String nomArticle) {
+        for (Article article : articleObservableList) {
+            if(article.getNomArticle() == nomArticle) {
+                return article;
+            }
+        }
+        return null;
     }
 
     public ObservableList<Article> getArticleObservableList() {

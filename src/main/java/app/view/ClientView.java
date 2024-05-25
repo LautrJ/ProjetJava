@@ -53,7 +53,6 @@ public class ClientView {
             public TableCell<Client, Void> call(TableColumn<Client, Void> param) {
                 return new TableCell<>() {
                     private final Button btn = new Button("Modifier");
-
                     {
                         btn.setOnAction((event) -> {
                             Client client = getTableView().getItems().get(getIndex());
@@ -81,7 +80,6 @@ public class ClientView {
             public TableCell<Client, Void> call(TableColumn<Client, Void> param) {
                 return new TableCell<>() {
                     private final Button btn = new Button("Supprimer");
-
                     {
                         btn.setOnAction((event) -> {
                             clientController.deleteClient(getIndex());

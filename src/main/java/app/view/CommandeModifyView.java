@@ -3,40 +3,34 @@ package app.view;
 import app.controller.CommandeController;
 import app.model.Article;
 import app.model.ArticleCommande;
-import app.model.Client;
-import javafx.beans.property.SimpleIntegerProperty;
+import app.model.Commande;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 import java.util.List;
-import java.util.Observable;
 
-public class CommandeAddView {
+public class CommandeModifyView {
 
     private Stage stage;
-    private ComboBox<Client> clientDropdown;
+    private TextField clientCommande;
     private Button addArticleCommande;
     private Button saveButton;
     private TableView<ArticleCommande> articleCommandeTable;
-    private ObservableList<ArticleCommande> articleCommandeObservableList;
-    private ObservableList<Article> articleObservableList;
     private CommandeController commandeController;
+    private ObservableList<ArticleCommande> articleCommandeObservableList;
 
-        public CommandeAddView(CommandeController commandeController, ObservableList<Client> clients, ObservableList<Article> articleObservableList, ObservableList<ArticleCommande> articleCommandeObservableList) {
+    public CommandeModifyView(CommandeController commandeController, ObservableList<ArticleCommande> articleCommandeObservableList) {
         this.commandeController = commandeController;
-        this.articleObservableList = articleObservableList;
         this.articleCommandeObservableList = articleCommandeObservableList;
-
         stage = new Stage();
         stage.setTitle("Création de commande");
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -46,22 +40,8 @@ public class CommandeAddView {
         gridPane.setVgap(10);
         gridPane.setHgap(10);
 
-        clientDropdown = new ComboBox<>();
-        clientDropdown.setItems(clients);
-        clientDropdown.setPromptText("Sélectionner un client");
-        clientDropdown.setConverter(new StringConverter<Client>() {
-            @Override
-            public String toString(Client client) {
-                return client != null ? client.getLogin() : "";
-            }
-
-            @Override
-            public Client fromString(String string) {
-                // Cette méthode est utilisée uniquement pour la conversion de la chaîne en objet Client,
-                // mais dans ce cas, nous n'en avons pas besoin, donc nous laissons simplement null.
-                return null;
-            }
-        });
+        clientCommande = new TextField("Client");
+        clientCommande.setEditable(false);
 
         addArticleCommande = new Button("Ajouter un article");
 
@@ -107,9 +87,8 @@ public class CommandeAddView {
 
 
         articleCommandeTable.getColumns().addAll(colArticles, colArticleQuantity, colSupprimer);
-        articleCommandeTable.setItems(articleCommandeObservableList);
 
-        gridPane.addRow(0, new Label("Client:"), clientDropdown);
+        gridPane.addRow(0, new Label("Client:"), clientCommande);
         gridPane.addRow(1, addArticleCommande);
         gridPane.addRow(2, articleCommandeTable);
         gridPane.addRow(3, saveButton);
@@ -118,12 +97,9 @@ public class CommandeAddView {
         stage.setScene(scene);
     }
 
-    public Client getSelectedClient() {
-        return clientDropdown.getValue();
-    }
-
-    public ObservableList<ArticleCommande> getArticleCommandeData() {
-        return articleCommandeObservableList;
+    public void setCommandeFields(Commande commande,ObservableList<ArticleCommande> articleCommandeObservableList) {
+        clientCommande.setText(commande.getClient().getLogin());
+        articleCommandeTable.setItems(articleCommandeObservableList);
     }
 
     public void show() {

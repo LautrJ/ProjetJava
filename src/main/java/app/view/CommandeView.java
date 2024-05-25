@@ -2,6 +2,7 @@ package app.view;
 
 import app.controller.CommandeController;
 import app.model.ArticleCommande;
+import app.model.Client;
 import app.model.Commande;
 import app.model.CommandeData;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,6 +38,7 @@ public class CommandeView {
         header.getChildren().addAll(titre, bouttonAjouter);
 
         tableView = new TableView<>();
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Commande, String> colClient = new TableColumn<>("Client");
         colClient.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClient().getLogin()));
@@ -59,9 +61,113 @@ public class CommandeView {
             return new SimpleStringProperty(articlesString.toString());
         });
 
-        tableView.getColumns().addAll(colClient, colDate, colStatus, colArticles);
+        TableColumn<Commande, Void> colModifier = new TableColumn<>("Modifier");
+        colModifier.setCellFactory(new Callback<TableColumn<Commande, Void>, TableCell<Commande, Void>>() {
+            @Override
+            public TableCell<Commande, Void> call(TableColumn<Commande, Void> param) {
+                return new TableCell<>() {
+                    private final Button btn = new Button("Modifier");
+                    {
+                        btn.setOnAction((event) -> {
+                            Commande commande = getTableView().getItems().get(getIndex());
+                            commandeController.afficherCommandeModifyView(commande);
+                        });
+                    }
 
-        ObservableList<Commande> commandeList = FXCollections.observableArrayList(CommandeData.getCommandes());
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+            }
+        });
+
+        TableColumn<Commande, Void> colSupprimer = new TableColumn<>("Supprimer");
+        colSupprimer.setCellFactory(new Callback<TableColumn<Commande, Void>, TableCell<Commande, Void>>() {
+            @Override
+            public TableCell<Commande, Void> call(TableColumn<Commande, Void> param) {
+                return new TableCell<>() {
+                    private final Button btn = new Button("Supprimer");
+                    {
+                        btn.setOnAction((event) -> {
+                            commandeController.deleteCommande(getIndex());
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+            }
+        });
+
+        TableColumn<Commande, Void> colBonDeLivraison = new TableColumn<>("Bon de livraison");
+        colBonDeLivraison.setCellFactory(new Callback<TableColumn<Commande, Void>, TableCell<Commande, Void>>() {
+            @Override
+            public TableCell<Commande, Void> call(TableColumn<Commande, Void> param) {
+                return new TableCell<>() {
+                    private final Button btn = new Button("Bon de livraison");
+                    {
+                        btn.setOnAction((event) -> {
+                            Commande commande = getTableView().getItems().get(getIndex());
+                            commandeController.genererBonDeLivraison(commande);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+            }
+        });
+
+        TableColumn<Commande, Void> colFacture = new TableColumn<>("Facture");
+        colFacture.setCellFactory(new Callback<TableColumn<Commande, Void>, TableCell<Commande, Void>>() {
+            @Override
+            public TableCell<Commande, Void> call(TableColumn<Commande, Void> param) {
+                return new TableCell<>() {
+                    private final Button btn = new Button("Facture");
+                    {
+                        btn.setOnAction((event) -> {
+                            Commande commande = getTableView().getItems().get(getIndex());
+                            commandeController.genererFacture(commande);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+            }
+        });
+
+        tableView.getColumns().addAll(colClient, colDate, colStatus, colArticles, colModifier, colSupprimer, colBonDeLivraison, colFacture);
+
+
+        ObservableList<Commande> commandeList = commandeController.getCommandeObservableList();
         tableView.setItems(commandeList);
 
         root.setTop(header);

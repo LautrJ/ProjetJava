@@ -39,5 +39,10 @@ public class Commande {
     public void setStatusCommande(StatusCommande statusCommande) { this.statusCommande = statusCommande; }
 
     public List<ArticleCommande> getListeArticles() { return listeArticles; }
-    public void setListeArticles(List<ArticleCommande> listeArticles) { this.listeArticles = listeArticles; }
+    public void setListeArticles(List<ArticleCommande> listeArticles) {
+        this.listeArticles = listeArticles;
+    }
+    public void addListeArticles(ArticleCommande article) {
+        this.listeArticles.add(article);
+    }
 }
