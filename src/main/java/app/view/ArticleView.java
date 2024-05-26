@@ -2,9 +2,7 @@ package app.view;
 
 import app.model.Article;
 import app.controller.ArticleController;
-import app.model.ArticleData;
 import app.model.ArticleListSingleton;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;

@@ -21,7 +21,7 @@ public class MainController {
     private void initialize(Stage primaryStage) {
         ClientController clientController = new ClientController(primaryStage);
         CommandeController commandeController = new CommandeController(primaryStage);
-        ArticleController articleController = new ArticleController(primaryStage);
+        ArticleController articleController = new ArticleController(primaryStage, commandeController);
         clientView = new ClientView(clientController);
         commandeView = new CommandeView(commandeController);
         stockView = new ArticleView(articleController);

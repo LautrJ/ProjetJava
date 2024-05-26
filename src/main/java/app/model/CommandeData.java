@@ -33,7 +33,7 @@ public class CommandeData {
         ArticleCommande articleCommande9 = new ArticleCommande(article9, 1);
         ArticleCommande articleCommande10 = new ArticleCommande(article10, 3);
 
-        Commande commande1 = new Commande(1, clients.get(0), new Date(), Commande.StatusCommande.EN_ATTENTE, new ArrayList<>(Arrays.asList(articleCommande1, articleCommande2, articleCommande3)));
+        Commande commande1 = new Commande(1, clients.get(0), new Date(), Commande.StatusCommande.VALIDEE, new ArrayList<>(Arrays.asList(articleCommande1, articleCommande2, articleCommande3)));
         Commande commande2 = new Commande(2, clients.get(1), new Date(), Commande.StatusCommande.VALIDEE, new ArrayList<>(Arrays.asList(articleCommande4, articleCommande5)));
         Commande commande3 = new Commande(3, clients.get(2), new Date(), Commande.StatusCommande.EXPEDIEE, new ArrayList<>(Arrays.asList(articleCommande6, articleCommande7, articleCommande8, articleCommande9, articleCommande10)));
 

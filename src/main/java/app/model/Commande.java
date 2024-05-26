@@ -22,15 +22,15 @@ public class Commande {
         EN_ATTENTE,
         VALIDEE,
         EXPEDIEE,
-        LIVREE,
-        ANNULEE;
+        EN_COURS,
+        PAYEE;
     }
 
     public int getId() { return idCommande; }
     public void setId(int idCommande) { this.idCommande = idCommande; }
 
     public Client getClient() { return client;}
-    public void setRefClient(Client client) {  this.client = client; }
+    public void setClient(Client client) {  this.client = client; }
 
     public Date getDateDeCommande() { return dateDeCommande; }
     public void setDateDeCommande(Date dateDeCommande) { this.dateDeCommande = dateDeCommande; }

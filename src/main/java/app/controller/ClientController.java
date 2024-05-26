@@ -1,14 +1,10 @@
 package app.controller;
 
 import app.model.Client;
-import app.model.ClientData;
 import app.model.ClientListSingleton;
 import app.view.ClientAddView;
 import app.view.ClientModifyView;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ClientController {

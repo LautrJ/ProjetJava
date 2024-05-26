@@ -4,7 +4,6 @@ import app.model.Client;
 import app.controller.ClientController;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -73,7 +72,6 @@ public class ClientView {
             }
         });
 
-        // Colonne Supprimer
         TableColumn<Client, Void> colSupprimer = new TableColumn<>("Supprimer");
         colSupprimer.setCellFactory(new Callback<TableColumn<Client, Void>, TableCell<Client, Void>>() {
             @Override

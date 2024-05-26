@@ -4,23 +4,16 @@ import app.controller.CommandeController;
 import app.model.Article;
 import app.model.ArticleCommande;
 import app.model.Client;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-
-import java.util.List;
-import java.util.Observable;
-
 public class CommandeAddView {
 
     private Stage stage;
@@ -57,8 +50,6 @@ public class CommandeAddView {
 
             @Override
             public Client fromString(String string) {
-                // Cette méthode est utilisée uniquement pour la conversion de la chaîne en objet Client,
-                // mais dans ce cas, nous n'en avons pas besoin, donc nous laissons simplement null.
                 return null;
             }
         });
@@ -132,14 +123,6 @@ public class CommandeAddView {
 
     public void close() {
         stage.close();
-    }
-
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Avertissement");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     public Button getAddArticleCommande() {

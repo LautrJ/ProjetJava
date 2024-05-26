@@ -2,11 +2,8 @@ package app.view;
 
 import app.controller.CommandeController;
 import app.model.ArticleCommande;
-import app.model.Client;
 import app.model.Commande;
-import app.model.CommandeData;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -164,7 +161,33 @@ public class CommandeView {
             }
         });
 
-        tableView.getColumns().addAll(colClient, colDate, colStatus, colArticles, colModifier, colSupprimer, colBonDeLivraison, colFacture);
+        TableColumn<Commande, Void> colPayee = new TableColumn<>("Payee");
+        colPayee.setCellFactory(new Callback<TableColumn<Commande, Void>, TableCell<Commande, Void>>() {
+            @Override
+            public TableCell<Commande, Void> call(TableColumn<Commande, Void> param) {
+                return new TableCell<>() {
+                    private final Button btn = new Button("Payee");
+                    {
+                        btn.setOnAction((event) -> {
+                            Commande commande = getTableView().getItems().get(getIndex());
+                            commandeController.payeeCommande(commande);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+            }
+        });
+
+        tableView.getColumns().addAll(colClient, colDate, colStatus, colArticles, colModifier, colSupprimer, colBonDeLivraison, colFacture, colPayee);
 
 
         ObservableList<Commande> commandeList = commandeController.getCommandeObservableList();

@@ -1,22 +1,17 @@
 package app.view;
 
 import app.controller.CommandeController;
-import app.model.Article;
 import app.model.ArticleCommande;
 import app.model.Commande;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import java.util.List;
 
 public class CommandeModifyView {
 

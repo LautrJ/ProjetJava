@@ -28,7 +28,7 @@ public class FactureView {
     private void setupLayout() {
         VBox vbox = new VBox(10);
 
-        Label titre = new Label("Bon de Livraison");
+        Label titre = new Label("Facture");
         titre.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
 
         Label clientNom = new Label("Nom du client : " + commande.getClient().getNomClient());

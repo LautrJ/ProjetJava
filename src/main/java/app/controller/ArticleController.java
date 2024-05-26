@@ -3,12 +3,8 @@ package app.controller;
 import app.model.*;
 import app.view.ArticleAddView;
 import app.view.ArticleModifyView;
-import app.view.ClientModifyView;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-
-import java.util.function.Consumer;
 
 public class ArticleController {
     private ObservableList<Article> articleObservableList;
@@ -16,11 +12,11 @@ public class ArticleController {
     private Stage parentStage;
     private CommandeController commandeController;
 
-    public ArticleController(Stage parentStage) {
+    public ArticleController(Stage parentStage, CommandeController commandeController) {
         this.parentStage = parentStage;
         this.articleObservableList = ArticleListSingleton.getInstance().getArticleObservableList();
-        this.commandeObservableList = FXCollections.observableArrayList(CommandeData.getCommandes());
-        this.commandeController = new CommandeController(parentStage);
+        this.commandeObservableList = CommandeListSingleton.getInstance().getCommandeObservableList();
+        this.commandeController = commandeController;
     }
 
     public void afficherArticleAddView() {
@@ -55,6 +51,7 @@ public class ArticleController {
                 break;
             }
         }
+        commandeController.updateCommandesStatus();
     }
 
     public void deleteArticle(int index) {
@@ -68,18 +65,5 @@ public class ArticleController {
         } else {
             System.out.println("Article non ajouté, données non valides");
         }
-    }
-
-    public Article findArticleByName(ObservableList<Article> articleObservableList, String nomArticle) {
-        for (Article article : articleObservableList) {
-            if(article.getNomArticle() == nomArticle) {
-                return article;
-            }
-        }
-        return null;
-    }
-
-    public ObservableList<Article> getArticleObservableList() {
-        return articleObservableList;
     }
 }
